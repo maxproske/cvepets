@@ -3,35 +3,23 @@ version: "3"
 services:
   openvas:
     container_name: openvas
-    image: atomicorp/openvas
+    build:
+      context: ./openvas
+      dockerfile: Dockerfile
     # Persist data if container is stopped 
     volumes:
-      - openvas:/var/lib/openvas/mgr
-      - ovsock:/var/run
+      - openvas:/data
     environment:
-      OV_PASSWORD: ${OV_PASSWORD}
+      PASSWORD: ${OV_PASSWORD}
+      # Get the scanner operational faster, at the cost of
+      # using what might be slightly out of date NVTs
+      SKIPSYNC: "true"
     ports:
-      - 443:443 # Port 443 is likely already in use
+      - 8080:9392 # Port 9392 is likely already in use
+      - 9390:9390
     restart: always
-    networks:
-      - cvepets
-
-  mixeway:
-    container_name: mixeway
-    build:
-      context: ./mixeway
-      dockerfile: Dockerfile
-    # Use unix socket from openvas container
-    volumes:
-      - ovsock:/var/run/openvas:rw
-    ports:
-      - 8443:8443
-    restart: always
-    depends_on: 
-      - openvas
     networks:
       - cvepets
 
 volumes:
   openvas:
-  ovsock:
