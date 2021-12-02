@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+  openvas:
+    container_name: openvas
+    build:
+      context: ./openvas
+      dockerfile: Dockerfile
+    # Persist data if container is stopped 
+    volumes:
+      - openvas:/data
+    environment:
+      PASSWORD: ${OV_PASSWORD}
+      # Get the scanner operational faster, at the cost of
+      # using what might be slightly out of date NVTs
+      SKIPSYNC: "true"
+    ports:
+      - 8080:9392 # Port 9392 is likely already in use
+      - 9390:9390
+    restart: always
+    networks:
+      - cvepets
+
+volumes:
+  openvas:

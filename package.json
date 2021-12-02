@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "repository": "https://github.com/maxproske/cvepets.git",
-  "author": "Max Proske <mp@six12creative.com>",
+  "author": "Max Proske <max@mproske.com>",
   "license": "MIT",
+  "dependencies": {},
   "devDependencies": {
     "eslint": "^7.32.0",
     "eslint-config-next": "^12.0.4",

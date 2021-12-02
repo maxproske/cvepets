@@ -1,4 +1,5 @@
-FROM node:16-alpine
+# Note: jsontoxml does not work on alpine
+FROM node:16
 
 WORKDIR /app
 

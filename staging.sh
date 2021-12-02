@@ -20,6 +20,7 @@ DOCKER_BUILDKIT=1 \
 docker-compose -f docker-compose.yml \
     -f docker-compose.next.yml \
     -f docker-compose.next.local.yml \
+    -f docker-compose.openvas.yml \
     build
 
 # Spin up development containers
@@ -28,4 +29,5 @@ docker-compose -f docker-compose.yml \
 docker-compose -f docker-compose.yml \
     -f docker-compose.next.yml \
     -f docker-compose.next.local.yml \
+    -f docker-compose.openvas.yml \
     up --renew-anon-volumes --remove-orphans
