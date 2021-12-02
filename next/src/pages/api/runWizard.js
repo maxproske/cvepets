@@ -11,7 +11,7 @@ export default async (req, res) => {
 
   const wizard = await omp.runWizard({
     name: 'quick_first_scan',
-    hosts: 'localhost',
+    hosts: 'flashflashrevolution.com',
   })
   const { status, status_text: message } = wizard
 
