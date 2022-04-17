@@ -13,7 +13,9 @@ export default async (req, res) => {
     name: 'quick_first_scan',
     hosts: 'flashflashrevolution.com',
   })
-  const { status, status_text: message } = wizard
+  const { status, status_text: message, response } = wizard
+  const taskId = response.get_tasks_response.task.id
+  const targetId = response.get_tasks_response.target.id
 
-  res.status(status).json({ status, message })
+  return res.status(status).json({ status, message, taskId, targetId })
 }

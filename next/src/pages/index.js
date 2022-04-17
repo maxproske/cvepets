@@ -1,31 +1,50 @@
 import Image from 'next/image'
 import styled from 'styled-components'
 import axios from 'axios'
+import { useGlobal } from '../context/Global'
 
-export default function Home() {
-  const onClick = async () => {
+const IndexPage = () => {
+  const { starter, updateStarter } = useGlobal()
+
+  const runWizard = async () => {
     const res = await axios.post('/api/runWizard')
     const data = res.data
+
     console.log({ data })
+  }
+
+  const getAllTargets = async () => {
+    const res = await axios.get('/api/getAllTargets')
+    const data = res.data
+
+    console.log({ data })
+  }
+
+  const handleStarterClick = (starterUpdate) => {
+    updateStarter(starterUpdate)
   }
 
   return (
     <StyledWrapper>
       <h2>Choose Your Starter</h2>
       <StyledPets>
-        <StyledPet>
+        <StyledPet onClick={() => handleStarterClick('penguin')}>
           <Image src="/img/game/pets/MmJnpF.gif" width="123" height="123" />
         </StyledPet>
-        <StyledPet>
+        <StyledPet onClick={() => handleStarterClick('fish')}>
           <Image src="/img/game/pets/P7JZLN.gif" width="123" height="123" />
         </StyledPet>
-        <StyledPet>
+        <StyledPet onClick={() => handleStarterClick('otter')}>
           <Image src="/img/game/pets/QErA8A.gif" width="123" height="123" />
         </StyledPet>
       </StyledPets>
+      {starter && <button onClick={runWizard}>Run Wizard</button>}
+      {starter && <button onClick={getAllTargets}>Get All Targets</button>}
     </StyledWrapper>
   )
 }
+
+export default IndexPage
 
 const StyledWrapper = styled.div`
   display: flex;

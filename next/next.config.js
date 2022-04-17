@@ -1,6 +1,7 @@
 module.exports = {
-  experimental: {
-    // Next 12.0.4 adds experimental support for server-side styled-components with SWC!
+  compiler: {
+    // SSR and displayName are configured by default
     styledComponents: true,
   },
+  swcMinify: true,
 }

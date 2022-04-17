@@ -19,7 +19,7 @@ export const GlobalStyles = createGlobalStyle`
     margin: 0;
     color: white;
     background-color: #00bcd4;
-    background-image: url('/img/game/background/tile.png');
+    background-image: url('/img/game/background/tile-pos.png');
     background-repeat: repeat;
     background-position: 0 0;
   }
