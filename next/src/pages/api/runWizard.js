@@ -11,11 +11,11 @@ export default async (req, res) => {
 
   const wizard = await omp.runWizard({
     name: 'quick_first_scan',
-    hosts: 'flashflashrevolution.com',
+    hosts: 'localhost',
   })
   const { status, status_text: message, response } = wizard
-  const taskId = response.get_tasks_response.task.id
-  const targetId = response.get_tasks_response.target.id
+  // const taskId = response.get_tasks_response.task.id
+  const reportId = response.get_tasks_response.task.current_report.report.id
 
-  return res.status(status).json({ status, message, taskId, targetId })
+  return res.status(status).json({ reportId })
 }

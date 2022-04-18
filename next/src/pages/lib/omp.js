@@ -91,6 +91,31 @@ class OMP {
     })
   }
 
+  getTask(taskId) {
+    // details="1" to including all reports
+    var xml = '<get_tasks task_id="' + taskId + '" details="1"/>'
+
+    return new Promise((resolve, reject) => {
+      this.sendCommand(xml, createResponsePromise(this._handleGetTasks, resolve, reject))
+    })
+  }
+
+  getReport(reportId) {
+    var xml = `<get_reports report_id="${reportId}"/>`
+
+    return new Promise((resolve, reject) => {
+      this.sendCommand(xml, createResponsePromise(this._handleGetReports, resolve, reject))
+    })
+  }
+
+  getVulnerabilities() {
+    const xml = `<get_vulns/>`
+
+    return new Promise((resolve, reject) => {
+      this.sendCommand(xml, createResponsePromise(this._handleGetVulnerabilities, resolve, reject))
+    })
+  }
+
   /*
    * createTarget(opts)
    * Creates a scan target
@@ -213,7 +238,6 @@ class OMP {
       }
 
       var xml = jsonxml(json)
-      console.log(xml)
       this.sendCommand(xml, createResponsePromise(this._handleCreateAction, resolve, reject))
     })
   }
@@ -279,7 +303,6 @@ class OMP {
       }
 
       var xml = jsonxml(json)
-      console.log(xml)
       this.sendCommand(xml, createResponsePromise(this._handleCreateAction, resolve, reject))
     })
   }
@@ -324,7 +347,6 @@ class OMP {
       }
 
       var xml = jsonxml(json)
-      console.log(xml)
       this.sendCommand(xml, createResponsePromise(this._handleCreateAction, resolve, reject))
     })
   }
@@ -393,7 +415,6 @@ class OMP {
       }
 
       var xml = jsonxml(json)
-      console.log(xml)
       this.sendCommand(xml, createResponsePromise(this._handleCreateAction, resolve, reject))
     })
   }
@@ -420,7 +441,6 @@ class OMP {
         create_port_list: [{ name: 'name', text: opts.name }],
       }
 
-      console.log(json.create_port_list)
       if (opts.portRange) {
         json.create_port_list.push({
           name: 'port_range',
@@ -538,7 +558,6 @@ class OMP {
 
   sendJSONCommand(json, responseFn, resolve, reject) {
     var xml = jsonxml(json)
-    console.log(xml)
     this.sendCommand(xml, createResponsePromise(responseFn, resolve, reject))
   }
 
@@ -567,6 +586,45 @@ class OMP {
     return reject(targets_res.status_text)
   }
 
+  _handleGetTasks(res, resolve, reject) {
+    var tasks_res = res.get_tasks_response
+    if (tasks_res.status === '200') {
+      return resolve({
+        tasks: tasks_res.task,
+        filters: tasks_res.filters,
+        taskCount: tasks_res.task_count,
+      })
+    }
+
+    return reject(tasks_res.status_text)
+  }
+
+  _handleGetReports(res, resolve, reject) {
+    var reports_res = res.get_reports_response
+    if (reports_res.status === '200') {
+      return resolve({
+        reports: reports_res.report,
+        filters: reports_res.filters,
+        reportCount: reports_res.report_count,
+      })
+    }
+
+    return reject(reports_res.status_text)
+  }
+
+  _handleGetVulnerabilities(res, resolve, reject) {
+    var vulnerabilities_res = res.get_vulns_response
+    if (vulnerabilities_res.status === '200') {
+      return resolve({
+        vulnerabilities: vulnerabilities_res.vuln,
+        filters: vulnerabilities_res.filters,
+        targetCount: vulnerabilities_res.target_count,
+      })
+    }
+
+    return reject(vulnerabilities_res.status_text)
+  }
+
   _handleCreateAction(res, resolve, reject) {
     var res = res[Object.keys(res)[0]]
     if (res.status === '201' || res.status === '202') {
@@ -593,7 +651,7 @@ class OMP {
       console.dir(json, { colors: true })
       resHandler.handler.apply(this, [json, resHandler.resolve, resHandler.reject])
     } catch (err) {
-      console.log(data.toString())
+      console.info(data.toString())
       console.error(err)
     }
 
@@ -602,7 +660,7 @@ class OMP {
   }
 
   _onclose() {
-    console.log('Connection closed by remote host')
+    console.error('Connection closed by remote host')
   }
 }
 

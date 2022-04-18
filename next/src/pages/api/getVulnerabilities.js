@@ -9,8 +9,10 @@ export default async (req, res) => {
   await omp.connect()
   await omp.login()
 
-  const wizard = await omp.getAllTargets()
-  const { status, status_text: message, response, targets } = wizard
+  const wizard = await omp.getVulnerabilities()
+  const { vulnerabilities } = wizard
 
-  return res.json({ targets })
+  console.log({ vulnerabilities })
+
+  return res.json({ vulnerabilities })
 }
