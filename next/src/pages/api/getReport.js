@@ -2,7 +2,6 @@ const OMP = require('../lib/omp')
 
 export default async (req, res) => {
   const { taskId } = req.query
-  console.log({ taskId })
 
   const omp = new OMP({
     host: 'openvas',
@@ -13,12 +12,10 @@ export default async (req, res) => {
   await omp.login()
 
   const taskRes = await omp.getTask(taskId)
-  const reportId = taskRes.tasks.current_report.report.id
-  // const reports = taskRes.tasks.reports
-  console.log({ reportId })
+  const reportId = taskRes.tasks.current_report?.report.id || taskRes.tasks?.last_report?.report.id
+
   const reportRes = await omp.getReport(reportId)
+  const report = reportRes.reports.report
 
-  console.log({ reportRes })
-
-  return res.json({ reportRes })
+  return res.json({ report })
 }

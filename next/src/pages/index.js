@@ -1,12 +1,12 @@
 import styled from 'styled-components'
 import { useGlobal } from '../context/Global'
-import { StarterSelector } from '../components/StarterSelector'
+import { StarterPetSelector } from '../components/StarterPetSelector'
 import { Wizard } from '../components/Wizard'
 
 const IndexPage = () => {
-  const { starter } = useGlobal()
+  const { pet } = useGlobal()
 
-  return <StyledWrapper>{starter ? <Wizard /> : <StarterSelector />}</StyledWrapper>
+  return <StyledWrapper>{pet ? <Wizard /> : <StarterPetSelector />}</StyledWrapper>
 }
 
 export default IndexPage

@@ -93,7 +93,7 @@ class OMP {
 
   getTask(taskId) {
     // details="1" to including all reports
-    var xml = '<get_tasks task_id="' + taskId + '" details="1"/>'
+    var xml = '<get_tasks task_id="' + taskId + '" details="1" />'
 
     return new Promise((resolve, reject) => {
       this.sendCommand(xml, createResponsePromise(this._handleGetTasks, resolve, reject))
@@ -101,7 +101,9 @@ class OMP {
   }
 
   getReport(reportId) {
-    var xml = `<get_reports report_id="${reportId}"/>`
+    // details="1" = Include results
+    // ignore_pagination="1" = Unlimited results
+    var xml = `<get_reports report_id="${reportId}" details="1" ignore_pagination="1" />`
 
     return new Promise((resolve, reject) => {
       this.sendCommand(xml, createResponsePromise(this._handleGetReports, resolve, reject))
@@ -113,6 +115,14 @@ class OMP {
 
     return new Promise((resolve, reject) => {
       this.sendCommand(xml, createResponsePromise(this._handleGetVulnerabilities, resolve, reject))
+    })
+  }
+
+  getResult(taskId) {
+    var xml = `<get_results filter="task_id=${taskId} rows=-1" />`
+
+    return new Promise((resolve, reject) => {
+      this.sendCommand(xml, createResponsePromise(this._handleGetResults, resolve, reject))
     })
   }
 
@@ -593,6 +603,7 @@ class OMP {
         tasks: tasks_res.task,
         filters: tasks_res.filters,
         taskCount: tasks_res.task_count,
+        reports: tasks_res.reports,
       })
     }
 
@@ -625,6 +636,20 @@ class OMP {
     return reject(vulnerabilities_res.status_text)
   }
 
+  _handleGetResults(res, resolve, reject) {
+    var results_res = res.get_results_response
+    console.log(results_res.result.length)
+    if (results_res.status === '200') {
+      return resolve({
+        result: results_res.result,
+        filters: results_res.filters,
+        resultCount: results_res.result_count,
+      })
+    }
+
+    return reject(results_res.status_text)
+  }
+
   _handleCreateAction(res, resolve, reject) {
     var res = res[Object.keys(res)[0]]
     if (res.status === '201' || res.status === '202') {
@@ -648,7 +673,7 @@ class OMP {
     try {
       var resHandler = this.responseHandlerQueue.shift()
       var json = JSON.parse(xmlParser.toJson(data))
-      console.dir(json, { colors: true })
+      // console.dir(json, { colors: true })
       resHandler.handler.apply(this, [json, resHandler.resolve, resHandler.reject])
     } catch (err) {
       console.info(data.toString())

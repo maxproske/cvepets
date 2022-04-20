@@ -14,8 +14,11 @@ export default async (req, res) => {
     hosts: 'localhost',
   })
   const { status, status_text: message, response } = wizard
-  // const taskId = response.get_tasks_response.task.id
-  const reportId = response.get_tasks_response.task.current_report.report.id
+  const task = {
+    taskId: response.get_tasks_response.task.id,
+  }
 
-  return res.status(status).json({ reportId })
+  console.log({ task })
+
+  return res.status(status).json({ task })
 }

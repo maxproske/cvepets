@@ -1,7 +1,7 @@
 import { createContext, useReducer, useContext, useMemo } from 'react'
 
 const initialState = {
-  starter: null,
+  pet: null,
 }
 
 export const GlobalContext = createContext(initialState)
@@ -10,11 +10,11 @@ GlobalContext.displayName = 'GlobalContext'
 
 const globalReducer = (state, action) => {
   switch (action.type) {
-    case `UPDATE_STARTER`:
-      const { starter } = action
+    case `UPDATE_PET`:
+      const { pet } = action
       return {
         ...state,
-        starter,
+        pet,
       }
     default: {
       console.error(`Unhandled action type: ${action.type}`)
@@ -26,12 +26,12 @@ const globalReducer = (state, action) => {
 export const GlobalProvider = (props) => {
   const [state, dispatch] = useReducer(globalReducer, initialState)
 
-  const updateStarter = (starter) => dispatch({ type: 'UPDATE_STARTER', starter })
+  const updatePet = (pet) => dispatch({ type: 'UPDATE_PET', pet })
 
   const value = useMemo(
     () => ({
       ...state,
-      updateStarter,
+      updatePet,
     }),
     [state]
   )

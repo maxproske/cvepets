@@ -2,26 +2,26 @@ import Image from 'next/image'
 import styled from 'styled-components'
 import { useGlobal } from '../context/Global'
 
-export const StarterSelector = () => {
-  const { updateStarter } = useGlobal()
+export const StarterPetSelector = () => {
+  const { updatePet } = useGlobal()
 
-  const handleStarterClick = (starterUpdate) => {
-    updateStarter(starterUpdate)
+  const handlePetClick = (petUpdate) => {
+    updatePet(petUpdate)
   }
 
   return (
     <StyledWrapper>
-      <h2>Choose Your Starter</h2>
+      <h2>Choose Your Pet</h2>
       <StyledPets>
-        <StyledPet onClick={() => handleStarterClick('penguin')}>
+        <StyledPet onClick={() => handlePetClick('penguin')}>
           <Image src="/img/game/pets/MmJnpF.gif" width="123" height="123" />
           <StyledName>Lv.1 Penguin</StyledName>
         </StyledPet>
-        <StyledPet onClick={() => handleStarterClick('fish')}>
+        <StyledPet onClick={() => handlePetClick('fish')}>
           <Image src="/img/game/pets/P7JZLN.gif" width="123" height="123" />
           <StyledName>Lv.1 Fish</StyledName>
         </StyledPet>
-        <StyledPet onClick={() => handleStarterClick('otter')}>
+        <StyledPet onClick={() => handlePetClick('otter')}>
           <Image src="/img/game/pets/QErA8A.gif" width="123" height="123" />
           <StyledName>Lv.1 Otter</StyledName>
         </StyledPet>
