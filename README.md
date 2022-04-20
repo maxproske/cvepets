@@ -1,6 +1,22 @@
 # CVE Pets
 
-Uses GVM (formerly OpenVAS)
+What if you had a tamagotchi that could explore websites and collect shiny objects in the form of anonymized CVEs (Common Vulnerabilities and Exposures)?
+
+Web developers rarely consider common vulnerabilities when developing websites. CVE Pets aims to gamify [Greenbone Vulnerability Manager](https://www.greenbone.net/en/) (formerly OpenVAS) to get developers excited about web app security.
+
+## Roadmap
+
+- [x] Dockerize Next, automatic code formatting
+- [x] Dockerize GVM using [atomicorp/openvas](https://github.com/atomicorp/openvas), scan manually
+- [x] Try [Mixeway/MixewayOpenVASRestAPI](https://github.com/Mixeway/MixewayOpenVASRestAPI) abandonware ([unsuccessfully](https://github.com/Mixeway/MixewayOpenVASRestAPI/issues/8))
+- [x] Fork [RyanRiffle/node-omp](https://github.com/RyanRiffle/node-omp) to develop my own custom OMP library
+- [x] Switch to [immauss/openvas](https://github.com/immauss/openvas) for OMP support, scan via API request, and render CVEs
+- [x] Pokémon-style choose your starter pet
+- [ ] Revalidate report on interval using [SWR](https://swr.vercel.app/docs/revalidation#revalidate-on-interval)
+- [ ] Basic animations
+- [ ] Scan user's IP address
+- [ ] Dockerize Postgres for persistent data layer
+- [ ] Add more idle RPG gacha elements
 
 ## Getting Started
 
@@ -15,25 +31,4 @@ $ ./debug.sh
 ```
 
 - Next app: http://localhost:1337
-- OpenVAS dashboard: http://localhost:8080
-- Mixeway REST API: http://localhost:8443
-
-## Fun facts
-The atomicorp/openvas Docker image is based on Centos 7 for FIPS-140-2 compliance.
-
-
-Notes:
-
-Although OpenVAS offers TCP API, it is really hard to use, especially if you want to download a large report.
-```
-$ cd mixeway
-
-$ docker build -t mixeway --no-cache . && docker run -p 8443:8443 mixeway
-
-$ curl --insecure --header "Content-Type: application/json" --request POST --data '{"username":"admin","password":"rest"}' "https://localhost:8443/initialize"
-
-$ cd cvepets/mixeway/pki
-$ curl --insecure --cert cert.crt --key private.key --header "Content-Type: application/json" --request POST --data '{"username":"admin","password":"rest"}' "https://localhost:8443/initialize"
-```
-
-curl: (56) OpenSSL SSL_read: error:14094416:SSL routines:ssl3_read_bytes:sslv3 alert certificate unknown, errno 0
+- GVM dashboard: http://localhost:8080
