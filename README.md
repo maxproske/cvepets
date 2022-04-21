@@ -13,8 +13,8 @@ Web developers rarely consider common vulnerabilities when developing websites. 
 - [x] Switch to [immauss/openvas](https://github.com/immauss/openvas) for OMP support, scan via API request, and render CVEs
 - [x] Pokémon-style choose your starter pet
 - [x] Revalidate report on interval using [SWR](https://swr.vercel.app/docs/revalidation#revalidate-on-interval)
+- [x] Scan user's host
 - [ ] Basic animations
-- [ ] Scan user's IP address
 - [ ] Dockerize Postgres for persistent data layer
 - [ ] Add more idle RPG/gacha elements
 - [ ] Firebase for Google One Tap login

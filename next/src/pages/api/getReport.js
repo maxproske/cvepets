@@ -1,4 +1,4 @@
-const OMP = require('../lib/omp')
+import OMP from '../../lib/omp'
 
 export default async (req, res) => {
   const { taskId } = req.query

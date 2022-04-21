@@ -14,3 +14,5 @@ services:
     restart: always
     networks:
       - cvepets
+    ports:
+      - 80:3000 # Port 3000 is likely already in use

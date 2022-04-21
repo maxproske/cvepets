@@ -16,7 +16,7 @@ services:
       SKIPSYNC: "true"
     ports:
       - 8080:9392 # Port 9392 is likely already in use
-      - 9390:9390
+      # - 9390:9390 # Don't expose OMP port
     restart: always
     networks:
       - cvepets
