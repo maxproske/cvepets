@@ -14,6 +14,8 @@ Web developers rarely consider common vulnerabilities when developing websites. 
 - [x] Pokémon-style choose your starter pet
 - [x] Revalidate report on interval using [SWR](https://swr.vercel.app/docs/revalidation#revalidate-on-interval)
 - [x] Scan user's host
+- [x] Dockerize Nginx
+- [ ] Setup CI/CD with GitHub Actions
 - [ ] Basic animations
 - [ ] Dockerize Postgres for persistent data layer
 - [ ] Add more idle RPG/gacha elements

@@ -67,7 +67,7 @@ class OMP {
       authenticate: {
         credentials: [
           { name: 'username', text: username },
-          { name: process.env.OV_PASSWORD, text: password },
+          { name: 'password', text: password },
         ],
       },
     })
