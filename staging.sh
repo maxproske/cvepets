@@ -21,7 +21,7 @@ docker-compose -f docker-compose.yml \
     -f docker-compose.next.yml \
     -f docker-compose.next.local.yml \
     -f docker-compose.openvas.yml \
-    build
+    build --parallel
 
 # Spin up development containers
 # --renew-anon-volumes prevents Postgres from retrieving volumes from previous containers after being killed
@@ -30,4 +30,4 @@ docker-compose -f docker-compose.yml \
     -f docker-compose.next.yml \
     -f docker-compose.next.local.yml \
     -f docker-compose.openvas.yml \
-    up --renew-anon-volumes --remove-orphans
+    up --renew-anon-volumes --remove-orphans -d
