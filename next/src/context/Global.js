@@ -16,6 +16,12 @@ const globalReducer = (state, action) => {
         ...state,
         pet,
       }
+    case `UPDATE_TASK`:
+      const { task } = action
+      return {
+        ...state,
+        task,
+      }
     default: {
       console.error(`Unhandled action type: ${action.type}`)
       return state
@@ -27,11 +33,13 @@ export const GlobalProvider = (props) => {
   const [state, dispatch] = useReducer(globalReducer, initialState)
 
   const updatePet = (pet) => dispatch({ type: 'UPDATE_PET', pet })
+  const updateTask = (task) => dispatch({ type: 'UPDATE_TASK', task })
 
   const value = useMemo(
     () => ({
       ...state,
       updatePet,
+      updateTask,
     }),
     [state]
   )

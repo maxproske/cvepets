@@ -4,4 +4,8 @@ module.exports = {
     styledComponents: true,
   },
   swcMinify: true,
+  eslint: {
+    // Allow project to build even if project has ESLint errors
+    ignoreDuringBuilds: true,
+  },
 }

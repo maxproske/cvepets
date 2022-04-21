@@ -10,6 +10,7 @@ services:
       # https://github.com/vercel/next.js/discussions/14030
       args:
         IS_QA: ${IS_QA}
+        OV_PASSWORD: ${OV_PASSWORD}
     restart: always
     networks:
       - cvepets

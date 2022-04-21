@@ -6,7 +6,7 @@ export default async (req, res) => {
   const omp = new OMP({
     host: 'openvas',
     username: 'admin',
-    password: 'password',
+    password: process.env.OV_PASSWORD,
   })
   await omp.connect()
   await omp.login()

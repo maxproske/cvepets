@@ -8,19 +8,19 @@ export const Pet = () => {
   return (
     <StyledPets>
       {pet === 'penguin' && (
-        <StyledPet onClick={() => handlePetClick('penguin')}>
+        <StyledPet>
           <Image src="/img/game/pets/MmJnpF.gif" width="123" height="123" />
           <StyledName>Lv.1 Penguin</StyledName>
         </StyledPet>
       )}
       {pet === 'fish' && (
-        <StyledPet onClick={() => handlePetClick('fish')}>
+        <StyledPet>
           <Image src="/img/game/pets/P7JZLN.gif" width="123" height="123" />
           <StyledName>Lv.1 Fish</StyledName>
         </StyledPet>
       )}
       {pet === 'otter' && (
-        <StyledPet onClick={() => handlePetClick('otter')}>
+        <StyledPet>
           <Image src="/img/game/pets/QErA8A.gif" width="123" height="123" />
           <StyledName>Lv.1 Otter</StyledName>
         </StyledPet>
@@ -38,11 +38,6 @@ const StyledPets = styled.div`
 
 const StyledPet = styled.div`
   border-bottom: 0.5rem solid transparent;
-
-  &:hover {
-    border-bottom: 0.5rem solid white;
-    cursor: pointer;
-  }
 
   img {
     transform: scale(2);

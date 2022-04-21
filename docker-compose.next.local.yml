@@ -14,5 +14,6 @@ services:
       - ./next/src:/app/src
     environment:
       IS_QA: ${IS_QA}
+      OV_PASSWORD: ${OV_PASSWORD}
     ports:
       - 1337:3000 # Port 3000 is likely already in use

@@ -1,4 +1,4 @@
-FROM node:16-alpine
+FROM node:18-alpine
 
 WORKDIR /app
 
@@ -15,6 +15,8 @@ COPY next.config.js .
 # https://github.com/vercel/next.js/discussions/14030
 ARG IS_QA
 ENV IS_QA=${IS_QA}
+ARG OV_PASSWORD
+ENV OV_PASSWORD=${OV_PASSWORD}
 
 RUN yarn build
 
