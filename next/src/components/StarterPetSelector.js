@@ -26,6 +26,15 @@ export const StarterPetSelector = () => {
           <StyledName>Lv.1 Otter</StyledName>
         </StyledPet>
       </StyledPets>
+      <div>
+        <h3>Game information</h3>
+        <p>Your pet will explore the internet for malicious scripts, insecure APIs, and more.</p>
+        <p>As your pet collects vulnerabilities, it will level up.</p>
+        <p>
+          The game provides educational resources on web app security. Learn about common vulnerabilities and how to
+          prevent them in your own projects.
+        </p>
+      </div>
     </StyledWrapper>
   )
 }

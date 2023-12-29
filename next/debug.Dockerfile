@@ -1,3 +1,5 @@
+# syntax=docker/dockerfile:1
+
 # Note: jsontoxml does not work on alpine
 FROM node:18
 

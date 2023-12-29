@@ -1,6 +1,6 @@
 'use strict'
 
-// https://docs.greenbone.net/API/GMP/gmp-21.04.html#command_create_target
+// https://docs.greenbone.net/API/GMP/gmp-21.4.html
 
 const tls = require('tls')
 const jsonxml = require('jsontoxml')
@@ -103,15 +103,20 @@ class OMP {
   getReport(reportId) {
     // details="1" = Include results
     // ignore_pagination="1" = Unlimited results
-    var xml = `<get_reports report_id="${reportId}" details="1" ignore_pagination="1" />`
+    var xml = `<get_reports report_id="${reportId}"
+                           details="1" 
+                           ignore_pagination="0"
+                           group_column="severity"
+                           filter="apply_overrides=0 min_qod=70 sort-reverse=severity"
+    />`
 
     return new Promise((resolve, reject) => {
       this.sendCommand(xml, createResponsePromise(this._handleGetReports, resolve, reject))
     })
   }
 
-  getVulnerabilities() {
-    const xml = `<get_vulns/>`
+  getVulnerabilities(taskId) {
+    const xml = `<get_vulns filter="task_id=${taskId} sort-reverse=severity first=1 rows=1000" />`
 
     return new Promise((resolve, reject) => {
       this.sendCommand(xml, createResponsePromise(this._handleGetVulnerabilities, resolve, reject))
@@ -119,7 +124,8 @@ class OMP {
   }
 
   getResult(taskId) {
-    var xml = `<get_results filter="task_id=${taskId} rows=-1" />`
+    // `details="1"` to include detailed results
+    var xml = `<get_results filter="task_id=${taskId} apply_overrides=0 levels=hml rows=100 min_qod=70 first=1 sort-reverse=severity" />`
 
     return new Promise((resolve, reject) => {
       this.sendCommand(xml, createResponsePromise(this._handleGetResults, resolve, reject))
@@ -676,7 +682,7 @@ class OMP {
       // console.dir(json, { colors: true })
       resHandler.handler.apply(this, [json, resHandler.resolve, resHandler.reject])
     } catch (err) {
-      console.info(data.toString())
+      // console.info(data.toString())
       console.error(err)
     }
 

@@ -49,3 +49,8 @@ tilt down
 - [ ] GitOps
 - [ ] ArgoCD
 - [ ] Next replicaset + OpenVas statefulset
+- [ ] Trading
+
+## Resources
+
+- https://worldflipper.jp/demo/src/index.html

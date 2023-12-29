@@ -1,4 +1,5 @@
 import OMP from '../../lib/omp'
+import example from './example.json'
 
 export default async (req, res) => {
   const { taskId } = req.query
@@ -11,11 +12,13 @@ export default async (req, res) => {
   const connect = await omp.connect()
   const login = await omp.login()
 
-  const taskRes = await omp.getTask(taskId)
-  const reportId = taskRes.tasks.current_report?.report.id || taskRes.tasks?.last_report?.report.id
+  // const taskRes = await omp.getTask(taskId)
+  // let reportId = taskRes.tasks.current_report?.report.id || taskRes.tasks?.last_report?.report.id
 
-  const reportRes = await omp.getReport(reportId)
-  const report = reportRes.reports.report
+  // const objRes = await omp.getVulnerabilities(taskId)
+  // let obj = objRes.vulnerabilities
 
-  return res.json({ report })
+  const obj = example
+
+  return res.json({ report: obj })
 }

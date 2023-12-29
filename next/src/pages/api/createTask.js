@@ -11,12 +11,18 @@ export default async (req, res) => {
 
   // Cloudflare sends the end user's IP address in the `cf-connecting-ip` header
   // https://support.cloudflare.com/hc/en-us/articles/200170986-How-does-Cloudflare-handle-HTTP-Request-headers
-  const ip =
+  let ip =
     req.ip ||
     req.headers['cf-connecting-ip'] ||
     req.headers['x-forwarded-for'] ||
     req.headers['x-real-ip'] ||
-    req.connection.remoteAddress
+    req.connection.remoteAddresss
+
+  // google.com
+  // if (ip.includes('127.0.0.1')) {
+  //   ip = '142.250.217.110'
+  // }
+  // ip = '142.250.217.110'
 
   const wizard = await omp.runWizard({
     name: 'quick_first_scan',
@@ -24,8 +30,8 @@ export default async (req, res) => {
   })
   const { status, status_text: message, response } = wizard
   const task = {
-    taskId: response.get_tasks_response.task.id,
+    taskId: response?.get_tasks_response.task.id,
   }
 
-  return res.status(status).json({ task })
+  return res.status(status || 200).json({ task })
 }

@@ -17,7 +17,7 @@ export const Wizard = () => {
   return (
     <StyledWrapper>
       <Pet />
-      {!task && <button onClick={createTask}>Create Task</button>}
+      {!task && <button onClick={createTask}>Start Hunt</button>}
       {task && <Report />}
     </StyledWrapper>
   )
