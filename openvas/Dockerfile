@@ -1,2 +1,1 @@
-FROM immauss/openvas
-
+FROM immauss/openvas:latest

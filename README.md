@@ -4,6 +4,27 @@ What if you had a tamagotchi that could explore websites and collect shiny objec
 
 Web developers rarely consider common vulnerabilities when developing websites. CVE Pets aims to gamify [Greenbone Vulnerability Manager](https://www.greenbone.net/en/) (formerly OpenVAS) to get developers excited about web app security.
 
+## Getting Started
+
+```sh
+# Copy environment variables
+cp .env.sample .env
+
+# Install dependencies for automatic code formatting
+yarn install
+
+# Up
+$ kubectl config use-context docker-desktop
+tilt up
+
+# Down
+tilt down
+```
+
+- Next.js app: **http://localhost:3000**
+- GVM dashboard: **http://localhost:8080**
+- Tilt dashboard: **http://localhost:10350**
+
 ## Roadmap
 
 - [x] Dockerize Next, configure automatic code formatting
@@ -14,24 +35,17 @@ Web developers rarely consider common vulnerabilities when developing websites. 
 - [x] Pokémon-style choose your starter pet
 - [x] Revalidate report on interval using [SWR](https://swr.vercel.app/docs/revalidation#revalidate-on-interval)
 - [x] Scan user's host
-- [x] Dockerize Nginx
+- [x] Kubernetes
+- [x] Tilt
+- [ ] Deploy to DigitalOcean
+- [ ] Nginx
+- [ ] Helm
+- [ ] Scan user's real IP
 - [ ] Setup CI/CD with GitHub Actions
 - [ ] Basic animations
 - [ ] Dockerize Postgres for persistent data layer
 - [ ] Add more idle RPG/gacha elements
-- [ ] Firebase for Google One Tap login
-
-## Getting Started
-
-```
-# Copy environment variables
-$ cp env/dev.env.sample env/dev
-
-# Install dev dependencies for automatic code formatting
-$ yarn install
-
-$ ./debug.sh
-```
-
-- Next app: http://localhost:1337
-- GVM dashboard: http://localhost:8080
+- [ ] Google login
+- [ ] GitOps
+- [ ] ArgoCD
+- [ ] Next replicaset + OpenVas statefulset

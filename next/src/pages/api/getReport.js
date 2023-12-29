@@ -4,12 +4,12 @@ export default async (req, res) => {
   const { taskId } = req.query
 
   const omp = new OMP({
-    host: 'openvas',
+    host: 'openvas-service', // K8s svc name
     username: 'admin',
     password: process.env.OV_PASSWORD,
   })
-  await omp.connect()
-  await omp.login()
+  const connect = await omp.connect()
+  const login = await omp.login()
 
   const taskRes = await omp.getTask(taskId)
   const reportId = taskRes.tasks.current_report?.report.id || taskRes.tasks?.last_report?.report.id

@@ -3,9 +3,7 @@ version: "3"
 services:
   openvas:
     container_name: openvas
-    build:
-      context: ./openvas
-      dockerfile: Dockerfile
+    image: immauss/openvas:latest
     # Persist data if container is stopped 
     volumes:
       - openvas:/data

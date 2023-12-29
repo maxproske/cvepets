@@ -9,9 +9,9 @@ services:
       dockerfile: debug.Dockerfile
     # Sync local changes with container
     # Note: Don't sync the `.next` directory, or strange bugs will appear when switching branches
-    volumes:
-      - ./next/public:/app/public
-      - ./next/src:/app/src
+    # volumes:
+    #   - ./next/public:/app/public
+    #   - ./next/src:/app/src
     environment:
       IS_QA: ${IS_QA}
       OV_PASSWORD: ${OV_PASSWORD}

@@ -2,12 +2,12 @@ import OMP from '../../lib/omp'
 
 export default async (req, res) => {
   const omp = new OMP({
-    host: 'openvas',
+    host: 'openvas-service', // K8s svc name
     username: 'admin',
     password: process.env.OV_PASSWORD,
   })
-  await omp.connect()
-  await omp.login()
+  const connect = await omp.connect()
+  const login = await omp.login()
 
   // Cloudflare sends the end user's IP address in the `cf-connecting-ip` header
   // https://support.cloudflare.com/hc/en-us/articles/200170986-How-does-Cloudflare-handle-HTTP-Request-headers

@@ -1,0 +1,123 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: next-deployment
+  labels:
+    app: next
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: next
+  template:
+    metadata:
+      labels:
+        app: next
+    spec:
+      containers:
+      - name: next
+        image: maxproske/cvepets-next:latest
+        ports:
+        - containerPort: 3000
+        env:
+        - name: OV_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: next-secret
+              key: OV_PASSWORD
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: next-secret
+type: Opaque
+data:
+  # echo -n "password" | base64
+  OV_PASSWORD: cGFzc3dvcmQ=
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: next-service
+spec:
+  selector:
+    app: next
+  ports:
+    - protocol: TCP
+      port: 1337
+      targetPort: 3000
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openvas-deployment
+  labels:
+    app: openvas
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: openvas
+  template:
+    metadata:
+      labels:
+        app: openvas
+    spec:
+      containers:
+      - name: openvas
+        image: immauss/openvas:latest
+        ports:
+        - containerPort: 9392
+        - containerPort: 9390
+        env:
+        - name: PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: openvas-secret
+              key: OV_PASSWORD
+        - name: SKIPSYNC
+          value: "true"
+      volumes:
+      - name: openvas-data
+        persistentVolumeClaim:
+          claimName: openvas-pvc
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: openvas-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: openvas-secret
+type: Opaque
+data:
+  # echo -n "password" | base64
+  OV_PASSWORD: cGFzc3dvcmQ=
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: openvas-service
+spec:
+  selector:
+    app: openvas
+  ports:
+    - name: gvm
+      protocol: TCP
+      port: 8080
+      targetPort: 9392
+    - name: omp
+      protocol: TCP
+      port: 9390 # Make this private later
+      targetPort: 9390
+  type: LoadBalancer
