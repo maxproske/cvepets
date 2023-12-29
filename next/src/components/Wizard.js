@@ -24,6 +24,7 @@ export const Wizard = () => {
 }
 
 const StyledWrapper = styled.div`
-  max-width: 37rem;
+  max-width: 24rem;
+  width: 100%;
   margin: auto;
 `

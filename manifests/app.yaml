@@ -67,7 +67,7 @@ spec:
     spec:
       containers:
       - name: openvas
-        image: immauss/openvas:22.4.37
+        image: immauss/openvas:latest
         ports:
         - containerPort: 9392
         - containerPort: 9390

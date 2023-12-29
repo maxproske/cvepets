@@ -1,1 +1,1 @@
-FROM immauss/openvas:22.4.37
+FROM immauss/openvas:latest

@@ -3,6 +3,7 @@ import Image from 'next/image'
 import styled from 'styled-components'
 
 const Container = styled.div`
+  width: 100%;
   background: white;
   border-radius: 0.5rem;
   padding: 1rem;
@@ -12,16 +13,19 @@ const Container = styled.div`
 `
 
 const Watermark = styled.div`
-  background: url('/img/game/background/Kubernetes_logo_without_workmark.svg') no-repeat center bottom;
-  background-size: cover;
+  background: url('/img/game/background/Kubernetes_logo_without_workmark.svg') no-repeat;
+  background-position: center top;
+  background-size: 100% auto;
   filter: grayscale(100%);
   opacity: 0.05;
   position: absolute;
-  top: 0;
+  top: calc(100% - 6rem); // Position the top of the watermark at the middle of the container
   left: 0;
   right: 0;
-  bottom: 50%;
+  bottom: 0; // Extend the watermark to the bottom of the container
   pointer-events: none;
+  max-width: 12rem;
+  margin: 0 auto;
 `
 
 const Title = styled.div`
@@ -87,6 +91,7 @@ const hexToRgb = (hex) => {
 }
 
 const Tooltip = styled.div`
+  z-index: 100;
   position: absolute;
   bottom: 100%;
   left: 50%;
@@ -116,7 +121,6 @@ const Item = styled.div`
   .item-image-wrapper {
     display: flex;
     background-color: ${({ severity, qod }) => getBackgroundColor({ severity, qod })};
-
     width: 100%;
     height: 100%;
     position: relative;
@@ -126,10 +130,10 @@ const Item = styled.div`
   .item-image {
     align-self: center;
     justify-self: center;
-    width: 100%;
-    height: 100%;
     max-width: 2rem;
     max-height: 2rem;
+    width: 100%;
+    height: 100%;
     margin: 0 auto;
   }
 
@@ -182,7 +186,13 @@ const ItemsAcquired = ({ items }) => {
           <Item key={item.id} severity={+item.severity} qod={+item.qod}>
             <div className="item-image-wrapper">
               <div className="item-image">
-                <Image src="/img/game/items/icons8-minecraft-diamond-96.png" width="96" height="96" alt="Item" />
+                <Image
+                  src="/img/game/items/icons8-minecraft-diamond-96.png"
+                  width="32"
+                  height="32"
+                  alt="Item"
+                  quality={100}
+                />
               </div>
             </div>
             <div className="item-count">x{item.results.count}</div>

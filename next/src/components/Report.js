@@ -12,9 +12,8 @@ export const Report = () => {
 
   return (
     <>
-      <h2>Hunt Report</h2>
       <ItemsAcquired items={report} />
-      <table>
+      {/* <table>
         <thead>
           <tr>
             <th>Name</th>
@@ -33,7 +32,7 @@ export const Report = () => {
             </tr>
           ))}
         </tbody>
-      </table>
+      </table> */}
     </>
   )
 }
