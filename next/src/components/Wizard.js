@@ -3,6 +3,8 @@ import axios from 'axios'
 import { Pet } from '../components/Pet'
 import { Report } from '../components/Report'
 import { useGlobal } from '../context/Global'
+import { Button, ButtonGroup } from '@chakra-ui/react'
+import { HuntPopover } from './Tutorial/HuntPopover'
 
 export const Wizard = () => {
   const { task, updateTask } = useGlobal()
@@ -17,14 +19,25 @@ export const Wizard = () => {
   return (
     <StyledWrapper>
       <Pet />
-      {!task && <button onClick={createTask}>Start Hunt</button>}
+      {!task && (
+        <ButtonGroup spacing="6" mt="6">
+          <HuntPopover>
+            <Button m="0 auto" colorScheme="green" onClick={createTask}>
+              Let's Go!
+            </Button>
+          </HuntPopover>
+        </ButtonGroup>
+      )}
       {task && <Report />}
     </StyledWrapper>
   )
 }
 
 const StyledWrapper = styled.div`
-  max-width: 24rem;
   width: 100%;
-  margin: auto;
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
 `

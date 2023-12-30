@@ -5,14 +5,14 @@ import ItemsAcquired from './ItemsAcquired'
 
 export const Report = () => {
   const { task } = useGlobal()
-  const { report, isLoading, isError } = useReport({ task })
+  const { report, isLoading, isError, scanRunStatus, scanRunProgress } = useReport({ task })
 
   if (isLoading) return <div>Loading...</div>
   if (isError) return <div>Error!</div>
 
   return (
     <>
-      <ItemsAcquired items={report} />
+      <ItemsAcquired items={report} status={scanRunStatus} progress={scanRunProgress} />
       {/* <table>
         <thead>
           <tr>

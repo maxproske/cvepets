@@ -12,16 +12,12 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   html {
-    font-family: Arial;
+    font-family: Roboto, Arial, sans-serif;
   }
 
   body {
     margin: 0;
     color: white;
-    background-color: #00bcd4;
-    background-image: url('/img/game/background/tile-pos.png');
-    background-repeat: repeat;
-    background-position: 0 0;
   }
 
   h1, h2, h3, h4, h5, h6 {

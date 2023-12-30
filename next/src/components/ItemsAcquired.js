@@ -1,6 +1,30 @@
 import React from 'react'
 import Image from 'next/image'
 import styled from 'styled-components'
+import { Badge, Flex, Box, Divider, Text, Progress } from '@chakra-ui/react'
+
+const getBadgeColor = (status) => {
+  switch (status) {
+    case 'Delete Requested':
+      return 'red' // Example color
+    case 'Done':
+      return 'green'
+    case 'New':
+      return 'blue'
+    case 'Requested':
+      return 'purple'
+    case 'Running':
+      return 'orange'
+    case 'Stop Requested':
+      return 'yellow'
+    case 'Stopped':
+      return 'grey'
+    case 'Interrupted':
+      return 'pink'
+    default:
+      return 'gray' // Default color if status is not recognized
+  }
+}
 
 const Container = styled.div`
   width: 100%;
@@ -64,8 +88,9 @@ const ItemsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(3rem, 1fr));
   gap: 0.5rem;
-  padding-bottom: 4rem;
-  border-bottom: 1px solid #ddd;
+
+  //   padding-bottom: 4rem;
+  //   border-bottom: 1px solid #ddd;
 `
 
 const getBackgroundColor = ({ severity, qod }) => {
@@ -176,34 +201,73 @@ const Button = styled.button`
   cursor: pointer;
 `
 
-const ItemsAcquired = ({ items }) => {
+const ItemsAcquired = ({ items, status, progress }) => {
   return (
     <Container>
       <Watermark />
+      <Flex alignItems="center" mb="4">
+        <Badge colorScheme={getBadgeColor(status)} mr="3">
+          {status}
+        </Badge>
+        <Text fontSize="sm" color="black">
+          {(progress < 0 ? 100 : progress) || 0}%
+        </Text>
+        <Progress value={(progress < 0 ? 100 : progress) || 0} size="sm" colorScheme="green" width="200px" ml="2" />
+      </Flex>
+      <Divider my="4" />
+
       <Title>Items Acquired</Title>
+      {!items && (
+        <Text color="black" fontSize="sm">
+          <em>Nothing found yet!</em>
+        </Text>
+      )}
       <ItemsGrid>
-        {items.map((item) => (
-          <Item key={item.id} severity={+item.severity} qod={+item.qod}>
-            <div className="item-image-wrapper">
-              <div className="item-image">
-                <Image
-                  src="/img/game/items/icons8-minecraft-diamond-96.png"
-                  width="32"
-                  height="32"
-                  alt="Item"
-                  quality={100}
-                />
+        {items &&
+          items?.length > 0 &&
+          items?.map((item) => (
+            <Item key={item.id} severity={+item.severity} qod={+item.qod}>
+              <div className="item-image-wrapper">
+                <div className="item-image">
+                  <Image
+                    src="/img/game/items/icons8-minecraft-diamond-96.png"
+                    width="32"
+                    height="32"
+                    alt="Item"
+                    quality={100}
+                  />
+                </div>
               </div>
-            </div>
-            <div className="item-count">x{item.results.count}</div>
-            <div style={{ display: 'none' }}>{item.qod}</div>
-            <Tooltip>
-              {item.name} ({item.severity})
-            </Tooltip>
-          </Item>
-        ))}
+              <div className="item-count">x{item.results.count}</div>
+              <div style={{ display: 'none' }}>{item.qod}</div>
+              <Tooltip>
+                {item.name} ({item.severity})
+              </Tooltip>
+            </Item>
+          ))}
       </ItemsGrid>
-      <Button>Next</Button>
+
+      {items && items?.length && (
+        <>
+          <Divider my="4" />
+          <ItemsGrid>
+            <Item>
+              <div className="item-image-wrapper">
+                <div className="item-image">
+                  <Image
+                    src="/img/game/items/icons8-minecraft-diamond-96.png"
+                    width="32"
+                    height="32"
+                    alt="Item"
+                    quality={100}
+                  />
+                </div>
+              </div>
+              <div className="item-count">{items.length}</div>
+            </Item>
+          </ItemsGrid>
+        </>
+      )}
     </Container>
   )
 }

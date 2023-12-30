@@ -46,4 +46,5 @@ const StyledPet = styled.div`
 `
 const StyledName = styled.div`
   text-align: center;
+  font-weight: bold;
 `

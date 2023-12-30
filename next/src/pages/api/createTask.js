@@ -18,11 +18,10 @@ export default async (req, res) => {
     req.headers['x-real-ip'] ||
     req.connection.remoteAddresss
 
-  // google.com
+  // Debug
   // if (ip.includes('127.0.0.1')) {
-  //   ip = '142.250.217.110'
+  //   ip = '13.107.21.200'
   // }
-  // ip = '142.250.217.110'
 
   const wizard = await omp.runWizard({
     name: 'quick_first_scan',

@@ -3,7 +3,7 @@ version: "3"
 services:
   openvas:
     container_name: openvas
-    image: immauss/openvas:latest
+    image: immauss/openvas
     # Persist data if container is stopped 
     volumes:
       - openvas:/data

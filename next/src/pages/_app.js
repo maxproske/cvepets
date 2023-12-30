@@ -1,11 +1,17 @@
 import { GlobalContextWrapper } from '../context/Global'
+import { ChakraProvider } from '@chakra-ui/react'
 import { GlobalStyles } from '../components/GlobalStyles'
+import { TutorialProvider } from '../context/TutorialContext'
 
 function MyApp({ Component, pageProps }) {
   return (
     <GlobalContextWrapper>
-      <Component {...pageProps} />
-      <GlobalStyles />
+      <TutorialProvider>
+        <ChakraProvider>
+          <Component {...pageProps} />
+          <GlobalStyles />
+        </ChakraProvider>
+      </TutorialProvider>
     </GlobalContextWrapper>
   )
 }

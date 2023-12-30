@@ -11,6 +11,8 @@ export const useReport = ({ task }) => {
 
   return {
     report: data?.report,
+    scanRunStatus: data?.scanRunStatus,
+    scanRunProgress: data?.scanRunProgress,
     isLoading: !error && !data,
     isError: error,
   }

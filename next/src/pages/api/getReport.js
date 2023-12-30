@@ -12,13 +12,18 @@ export default async (req, res) => {
   const connect = await omp.connect()
   const login = await omp.login()
 
-  // const taskRes = await omp.getTask(taskId)
-  // let reportId = taskRes.tasks.current_report?.report.id || taskRes.tasks?.last_report?.report.id
+  const taskRes = await omp.getTask(taskId)
+  const scanRunProgress = taskRes.tasks.progress
+  const reportId = taskRes.tasks.current_report?.report.id || taskRes.tasks?.last_report?.report.id
 
-  // const objRes = await omp.getVulnerabilities(taskId)
-  // let obj = objRes.vulnerabilities
+  const reportRes = await omp.getReport(reportId)
+  const scanRunStatus = reportRes.reports.report.scan_run_status
 
-  const obj = example
+  const vulnRes = await omp.getVulnerabilities(taskId)
+  let vuln = vulnRes.vulnerabilities
 
-  return res.json({ report: obj })
+  // Debug
+  // vuln = example
+
+  return res.json({ report: vuln, scanRunStatus, scanRunProgress })
 }
