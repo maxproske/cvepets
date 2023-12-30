@@ -16,18 +16,19 @@ import styled from 'styled-components'
 
 const Watermark = styled.div`
   background: url('/img/game/background/Kubernetes_logo_without_workmark.svg') no-repeat;
-  background-position: center top;
+  background-position: left top; // Position the background image to the bottom right
   background-size: 100% auto;
   filter: grayscale(100%);
   opacity: 0.05;
   position: absolute;
-  top: calc(100% - 6rem); // Position the top of the watermark at the middle of the container
-  left: 0;
-  right: 0;
-  bottom: 0; // Extend the watermark to the bottom of the container
+  bottom: 0; // Align the watermark to the bottom of the container
+  right: 0; // Align the watermark to the right of the container
   pointer-events: none;
   max-width: 12rem;
-  margin: 0 auto;
+  transform: translate(3rem, 0rem); // Translate the watermark to the bottom right corner
+  width: 100%; // Set width to 50% to cover the bottom right half
+  height: 6rem; // Set a fixed height or adjust as needed
+  margin: 0; // Reset any margins
 `
 
 export const WelcomeModal = () => {
@@ -45,7 +46,14 @@ export const WelcomeModal = () => {
       <Modal isOpen={isOpen} onClose={handleClose} isCentered closeOnOverlayClick={false}>
         <ModalOverlay />
 
-        <ModalContent borderRadius="10px" boxShadow="0 4px 6px 0 rgba(0, 0, 0, 0.2)" m={4} p="4" maxW="sm">
+        <ModalContent
+          borderRadius="10px"
+          boxShadow="0 4px 6px 0 rgba(0, 0, 0, 0.2)"
+          m={4}
+          p="4"
+          maxW="sm"
+          overflow="hidden"
+        >
           <ModalHeader fontSize="md" fontWeight="bold" color="black" m="0 auto" p="2">
             Welcome to CVE Pets!
           </ModalHeader>

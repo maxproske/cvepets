@@ -79,6 +79,9 @@ spec:
               key: OV_PASSWORD
         - name: SKIPSYNC
           value: "true"
+        volumeMounts:
+        - name: openvas-data
+          mountPath: /data
       volumes:
       - name: openvas-data
         persistentVolumeClaim:

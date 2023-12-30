@@ -4,3 +4,5 @@ node_modules/
 
 # Ignore DevSpace cache and log folder
 .devspace/
+
+db-backup.sql

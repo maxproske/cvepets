@@ -51,6 +51,22 @@ tilt down
 - [ ] Next replicaset + OpenVas statefulset
 - [ ] Trading
 
+
+## TODO
+
+```sh
+# You have set the RESTORE env varible to true, but there is no db to restore from.
+# Make sure you include " -v <path to your backup.sql>:/usr/lib/db-backup.sql"
+
+kubectl get pods
+
+kubectl exec openvas-deployment-cc5d667c4-kprvv -- su -c "/usr/lib/postgresql/13/bin/pg_dumpall -U postgres -f /tmp/db-backup-file.sql"
+
+kubectl cp openvas-deployment-cc5d667c4-kprvv:/tmp/db-backup-file.sql db-backup-file.sql
+
+```
+
+
 ## Resources
 
 - https://worldflipper.jp/demo/src/index.html
