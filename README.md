@@ -14,7 +14,8 @@ cp .env.sample .env
 yarn install
 
 # Up
-$ kubectl config use-context docker-desktop
+kubectl config use-context docker-desktop
+
 tilt up
 
 # Down
@@ -37,7 +38,7 @@ tilt down
 - [x] Scan user's host
 - [x] Kubernetes
 - [x] Tilt
-- [ ] Deploy to DigitalOcean
+- [x] Deploy to DigitalOcean Kubernetes
 - [ ] Nginx
 - [ ] Helm
 - [ ] Scan user's real IP
@@ -52,7 +53,9 @@ tilt down
 - [ ] Trading
 
 
-## TODO
+## Issues
+
+- Is it really necessary for OpenVAS to rebuild the NVT Cache every time it gets run? https://github.com/mikesplain/openvas-docker/issues/149
 
 ```sh
 # You have set the RESTORE env varible to true, but there is no db to restore from.

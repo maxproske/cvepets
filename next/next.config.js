@@ -1,4 +1,5 @@
 module.exports = {
+  output: 'standalone',
   compiler: {
     // SSR and displayName are configured by default
     styledComponents: true,
