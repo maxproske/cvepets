@@ -33,7 +33,7 @@ export default async (req, res) => {
   }
 
   // Cleanup
-  const disconnect = await omp.disconnect()
+  // const disconnect = await omp.disconnect()
 
   return res.status(status || 200).json({ task })
 }

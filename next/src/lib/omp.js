@@ -50,9 +50,9 @@ class OMP {
           rejectUnauthorized: false,
         },
         () => {
-          if (!this.socket.authorized) {
-            reject(this.socket.authorizationError)
-          }
+          // if (!this.socket.authorized) {
+          //   reject(this.socket.authorizationError)
+          // }
 
           this.socket.setEncoding('utf8')
           this.socket.on('data', this._onResponse.bind(this))
