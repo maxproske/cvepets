@@ -36,7 +36,7 @@ export const HuntPopover = ({ children }) => {
       <PopoverContent>
         <PopoverArrow />
         <PopoverBody color="black" textAlign="center">
-          Start hunting for vulnerabilities
+          Ready to explore? Start your pet's journey by checking that your WiFi is secure against threats.
         </PopoverBody>
       </PopoverContent>
     </Popover>

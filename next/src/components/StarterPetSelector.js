@@ -16,19 +16,19 @@ export const StarterPetSelector = () => {
         <StyledPets>
           <StyledPet onClick={() => handlePetClick('penguin')}>
             <div className="pet-image">
-              <Image src="/img/game/pets/MmJnpF.gif" width="123" height="123" />
+              <Image src="/img/game/pets/MmJnpF.gif" width="123" height="123" priority={true} />
             </div>
             <StyledName>Lv.1 Penguin</StyledName>
           </StyledPet>
           <StyledPet onClick={() => handlePetClick('fish')}>
             <div className="pet-image">
-              <Image src="/img/game/pets/P7JZLN.gif" width="123" height="123" />
+              <Image src="/img/game/pets/P7JZLN.gif" width="123" height="123" priority={true} />
             </div>
             <StyledName>Lv.1 Fish</StyledName>
           </StyledPet>
           <StyledPet onClick={() => handlePetClick('otter')}>
             <div className="pet-image">
-              <Image src="/img/game/pets/QErA8A.gif" width="123" height="123" />
+              <Image src="/img/game/pets/QErA8A.gif" width="123" height="123" priority={true} />
             </div>
             <StyledName>Lv.1 Otter</StyledName>
           </StyledPet>

@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import styled from 'styled-components'
-import { Badge, Flex, Box, Divider, Text, Progress } from '@chakra-ui/react'
+import { Badge, Flex, Box, Divider, Text, Progress, SlideFade } from '@chakra-ui/react'
 
 const getBadgeColor = (status) => {
   switch (status) {
@@ -201,74 +201,103 @@ const Button = styled.button`
   cursor: pointer;
 `
 
-const ItemsAcquired = ({ items, status, progress }) => {
+const ItemsAcquired = ({ items, status, progress, createTask }) => {
+  const [show, setShow] = useState(false)
+
+  useEffect(() => {
+    setShow(true)
+  }, [])
+
   return (
-    <Container>
-      <Watermark />
-      <Flex alignItems="center" mb="4">
-        <Badge colorScheme={getBadgeColor(status)} mr="3">
-          {status}
-        </Badge>
-        <Text fontSize="sm" color="black">
-          {(progress < 0 ? 100 : progress) || 0}%
-        </Text>
-        <Progress value={(progress < 0 ? 100 : progress) || 0} size="sm" colorScheme="green" width="200px" ml="2" />
-      </Flex>
-      <Divider my="4" />
-
-      <Title>Items Acquired</Title>
-      {!items && (
-        <Text color="black" fontSize="sm">
-          <em>Nothing found yet!</em>
-        </Text>
-      )}
-      <ItemsGrid>
-        {items &&
-          items?.length > 0 &&
-          items?.map((item) => (
-            <Item key={item.id} severity={+item.severity} qod={+item.qod}>
-              <div className="item-image-wrapper">
-                <div className="item-image">
-                  <Image
-                    src="/img/game/items/icons8-minecraft-diamond-96.png"
-                    width="32"
-                    height="32"
-                    alt="Item"
-                    quality={100}
-                  />
-                </div>
-              </div>
-              <div className="item-count">x{item.results.count}</div>
-              <div style={{ display: 'none' }}>{item.qod}</div>
-              <Tooltip>
-                {item.name} ({item.severity})
-              </Tooltip>
-            </Item>
-          ))}
-      </ItemsGrid>
-
-      {items && items?.length && (
-        <>
+    <Box w="100%">
+      <SlideFade in={show} offsetY="1rem" display="flex" flexFlow="column nowrap" alignItems="center">
+        <Container>
+          <Watermark />
+          <Flex alignItems="center" mb="4">
+            <Badge colorScheme={getBadgeColor(status)} mr="3">
+              {status}
+            </Badge>
+            <Text fontSize="sm" color="black">
+              {(progress < 0 ? 100 : progress) || 0}%
+            </Text>
+            <Progress
+              value={(progress < 0 ? 100 : progress) || 0}
+              size="sm"
+              colorScheme="green"
+              width="200px"
+              ml="2"
+              hasStripe={status !== 'Done'}
+              isAnimated={true}
+            />
+          </Flex>
           <Divider my="4" />
+
+          <Title>Items Acquired</Title>
+          {!items &&
+            (status !== 'Done' ? (
+              <Text color="black" fontSize="sm">
+                <em>Nothing yet!</em>
+              </Text>
+            ) : (
+              <Text color="black" fontSize="sm">
+                <em>No items found.</em>
+              </Text>
+            ))}
           <ItemsGrid>
-            <Item>
-              <div className="item-image-wrapper">
-                <div className="item-image">
-                  <Image
-                    src="/img/game/items/icons8-minecraft-diamond-96.png"
-                    width="32"
-                    height="32"
-                    alt="Item"
-                    quality={100}
-                  />
-                </div>
-              </div>
-              <div className="item-count">{items.length}</div>
-            </Item>
+            {items &&
+              items?.length > 0 &&
+              items?.map((item) => (
+                <Item key={item.id} severity={+item.severity} qod={+item.qod}>
+                  <div className="item-image-wrapper">
+                    <div className="item-image">
+                      <Image
+                        src="/img/game/items/icons8-minecraft-diamond-96.png"
+                        width="32"
+                        height="32"
+                        alt="Item"
+                        quality={100}
+                      />
+                    </div>
+                  </div>
+                  <div className="item-count">x{item.results.count}</div>
+                  <div style={{ display: 'none' }}>{item.qod}</div>
+                  <Tooltip>
+                    {item.name} ({item.severity})
+                  </Tooltip>
+                </Item>
+              ))}
           </ItemsGrid>
-        </>
-      )}
-    </Container>
+
+          {items && items?.length && (
+            <>
+              <Divider my="4" />
+              <ItemsGrid>
+                <Item>
+                  <div className="item-image-wrapper">
+                    <div className="item-image">
+                      <Image
+                        src="/img/game/items/icons8-minecraft-diamond-96.png"
+                        width="32"
+                        height="32"
+                        alt="Item"
+                        quality={100}
+                      />
+                    </div>
+                  </div>
+                  <div className="item-count">x{items.length}</div>
+                </Item>
+              </ItemsGrid>
+            </>
+          )}
+        </Container>
+
+        {status === 'Done' && (
+          <Button onClick={createTask} variant="solid" colorScheme="orange" margin="0 auto">
+            Explore Again
+          </Button>
+        )}
+      </SlideFade>
+    </Box>
   )
 }
 

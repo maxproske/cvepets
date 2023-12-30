@@ -9,19 +9,19 @@ export const Pet = () => {
     <StyledPets>
       {pet === 'penguin' && (
         <StyledPet>
-          <Image src="/img/game/pets/MmJnpF.gif" width="123" height="123" />
+          <Image src="/img/game/pets/MmJnpF.gif" width="123" height="123" priority={true} />
           <StyledName>Lv.1 Penguin</StyledName>
         </StyledPet>
       )}
       {pet === 'fish' && (
         <StyledPet>
-          <Image src="/img/game/pets/P7JZLN.gif" width="123" height="123" />
+          <Image src="/img/game/pets/P7JZLN.gif" width="123" height="123" priority={true} />
           <StyledName>Lv.1 Fish</StyledName>
         </StyledPet>
       )}
       {pet === 'otter' && (
         <StyledPet>
-          <Image src="/img/game/pets/QErA8A.gif" width="123" height="123" />
+          <Image src="/img/game/pets/QErA8A.gif" width="123" height="123" priority={true} />
           <StyledName>Lv.1 Otter</StyledName>
         </StyledPet>
       )}

@@ -58,19 +58,19 @@ export const WelcomeModal = () => {
             Welcome to CVE Pets!
           </ModalHeader>
           <Divider my={2} />
-          <ModalBody color="black">
+          <ModalBody color="black" p="4">
             <Text fontSize="sm" pb="2">
               In a moment, you will select a virtual pet, trained to scour the internet for malware and insecure APIs.
-              Watch your pet evolve with each vulnerability it discovers and masters.
+              Watch your pet evolve with each exploit it discovers and masters.
             </Text>
             <Text fontSize="sm" pb="2">
               Have fun learning about <em>common vulnerabilities and exposures</em> (CVE), and how to prevent them in
-              your own web apps!
+              your own apps!
             </Text>
           </ModalBody>
           <Divider my={2} />
           <ModalFooter>
-            <Button colorScheme="green" onClick={handleClose} m="0 auto">
+            <Button colorScheme="orange" onClick={handleClose} m="0 auto">
               Continue
             </Button>
           </ModalFooter>

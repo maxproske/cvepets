@@ -105,10 +105,10 @@ class OMP {
   }
 
   getReport(reportId) {
-    // details="1" = Include results
+    // details="1" = Include results, but causes the response to be very large (xml could not be parsed)
     // ignore_pagination="1" = Unlimited results
     var xml = `<get_reports report_id="${reportId}"
-                           details="1" 
+                           details="0" 
                            ignore_pagination="0"
                            group_column="severity"
                            filter="apply_overrides=0 min_qod=70 sort-reverse=severity"
@@ -702,9 +702,9 @@ class OMP {
   }
 
   _onclose() {
-    console.info('Connection closed by remote host')
+    // console.info('Connection closed by remote host')
 
-    disconnect()
+    this.disconnect()
   }
 }
 

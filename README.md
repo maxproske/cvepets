@@ -39,37 +39,30 @@ tilt down
 - [x] Kubernetes w/ plain directory of YAML manifests
 - [x] Tilt
 - [x] Deploy to DigitalOcean Kubernetes
+- [x] Setup CI with GitHub Actions
+- [ ] Save/clear progress using localstorage
+- [ ] Scan your host -> 0: You're safe! 1+: How to fix -> Next scan
+- [ ] XP, level up
+- [ ] CVE icons
 - [ ] Nginx
 - [ ] Helm
-- [ ] Scan user's real IP
-- [ ] Setup CI/CD with GitHub Actions
 - [ ] Basic animations
 - [ ] Dockerize Postgres for persistent data layer
 - [ ] Add more idle RPG/gacha elements
+- [ ] Add more pets
 - [ ] Google login
 - [ ] GitOps
 - [ ] ArgoCD
 - [ ] Next replicaset + OpenVas statefulset
 - [ ] Trading
-
+- [ ] Patch notes
+- [ ] Community/playerbase
 
 ## Issues
 
 - Is it really necessary for OpenVAS to rebuild the NVT Cache every time it gets run? https://github.com/mikesplain/openvas-docker/issues/149
-
-```sh
-# You have set the RESTORE env varible to true, but there is no db to restore from.
-# Make sure you include " -v <path to your backup.sql>:/usr/lib/db-backup.sql"
-
-kubectl get pods
-
-kubectl exec openvas-deployment-cc5d667c4-kprvv -- su -c "/usr/lib/postgresql/13/bin/pg_dumpall -U postgres -f /tmp/db-backup-file.sql"
-
-kubectl cp openvas-deployment-cc5d667c4-kprvv:/tmp/db-backup-file.sql db-backup-file.sql
-
-```
-
+- Scan takes a while to startup and complete. How can we speed this up?
 
 ## Resources
 
-- https://worldflipper.jp/demo/src/index.html
+- UI: https://worldflipper.jp/demo/src/index.html

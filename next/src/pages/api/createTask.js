@@ -19,9 +19,10 @@ export default async (req, res) => {
     req.connection.remoteAddresss
 
   // Debug
-  // if (ip.includes('127.0.0.1')) {
-  //   ip = '13.107.21.200'
-  // }
+  if (ip.includes('127.0.0.1')) {
+    // ping google.com
+    // ip = '142.250.217.110'
+  }
 
   const wizard = await omp.runWizard({
     name: 'quick_first_scan',
@@ -33,7 +34,7 @@ export default async (req, res) => {
   }
 
   // Cleanup
-  // const disconnect = await omp.disconnect()
+  const disconnect = await omp.disconnect()
 
   return res.status(status || 200).json({ task })
 }

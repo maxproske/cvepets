@@ -3,13 +3,17 @@ import axios from 'axios'
 import { Pet } from '../components/Pet'
 import { Report } from '../components/Report'
 import { useGlobal } from '../context/Global'
-import { Button, ButtonGroup } from '@chakra-ui/react'
+import { Button, ButtonGroup, Text } from '@chakra-ui/react'
 import { HuntPopover } from './Tutorial/HuntPopover'
+import { useState } from 'react'
 
 export const Wizard = () => {
   const { task, updateTask } = useGlobal()
+  const [clicked, setClicked] = useState(false)
 
   const createTask = async () => {
+    setClicked(true)
+
     const res = await axios.post('/api/createTask')
     const taskUpdate = res.data.task
 
@@ -19,16 +23,16 @@ export const Wizard = () => {
   return (
     <StyledWrapper>
       <Pet />
-      {!task && (
+      {!task && !clicked && (
         <ButtonGroup spacing="6" mt="6">
           <HuntPopover>
-            <Button m="0 auto" colorScheme="green" onClick={createTask}>
-              Let's Go!
+            <Button m="0 auto" colorScheme="orange" onClick={createTask}>
+              Begin Exploration
             </Button>
           </HuntPopover>
         </ButtonGroup>
       )}
-      {task && <Report />}
+      {task && <Report createTask={createTask} />}
     </StyledWrapper>
   )
 }
