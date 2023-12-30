@@ -36,7 +36,7 @@ tilt down
 - [x] Pokémon-style choose your starter pet
 - [x] Revalidate report on interval using [SWR](https://swr.vercel.app/docs/revalidation#revalidate-on-interval)
 - [x] Scan user's host
-- [x] Kubernetes
+- [x] Kubernetes w/ plain directory of YAML manifests
 - [x] Tilt
 - [x] Deploy to DigitalOcean Kubernetes
 - [ ] Nginx
