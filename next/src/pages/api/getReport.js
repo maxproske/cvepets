@@ -25,5 +25,8 @@ export default async (req, res) => {
   // Debug
   // vuln = example
 
+  // Cleanup
+  const disconnect = await omp.disconnect()
+
   return res.json({ report: vuln, scanRunStatus, scanRunProgress })
 }

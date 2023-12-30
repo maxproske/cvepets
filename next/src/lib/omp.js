@@ -50,6 +50,10 @@ class OMP {
           rejectUnauthorized: false,
         },
         () => {
+          if (!this.socket.authorized) {
+            reject(this.socket.authorizationError)
+          }
+
           this.socket.setEncoding('utf8')
           this.socket.on('data', this._onResponse.bind(this))
           this.socket.on('close', this._onclose.bind(this))
@@ -690,8 +694,17 @@ class OMP {
     this._sendCommand()
   }
 
+  disconnect() {
+    if (this.socket) {
+      this.socket.end()
+      this.connection = null
+    }
+  }
+
   _onclose() {
-    console.error('Connection closed by remote host')
+    console.info('Connection closed by remote host')
+
+    disconnect()
   }
 }
 

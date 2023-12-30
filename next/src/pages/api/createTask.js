@@ -32,5 +32,8 @@ export default async (req, res) => {
     taskId: response?.get_tasks_response.task.id,
   }
 
+  // Cleanup
+  const disconnect = await omp.disconnect()
+
   return res.status(status || 200).json({ task })
 }
