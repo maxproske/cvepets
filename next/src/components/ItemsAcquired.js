@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import styled from 'styled-components'
 import { ButtonGroup, Button, Badge, Flex, Box, Divider, Text, Progress, SlideFade } from '@chakra-ui/react'
+import { ExploreMorePopover } from './Tutorial/ExploreMorePopover'
 
 const getBadgeColor = (status) => {
   switch (status) {
@@ -282,14 +283,16 @@ const ItemsAcquired = ({ items, status, progress, createTask }) => {
 
         {status === 'Done' && (
           <ButtonGroup w="100%" justifyContent="center" mt="4">
-            <Button
-              onClick={() => createTask({ random: true })}
-              variant="solid"
-              colorScheme="orange"
-              alignSelf="center"
-            >
-              Explore
-            </Button>
+            <ExploreMorePopover>
+              <Button
+                onClick={() => createTask({ random: true })}
+                variant="solid"
+                colorScheme="orange"
+                alignSelf="center"
+              >
+                Continue Exploration
+              </Button>
+            </ExploreMorePopover>
           </ButtonGroup>
         )}
       </SlideFade>
