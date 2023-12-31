@@ -1,4 +1,5 @@
 import OMP from '../../lib/omp'
+import hosts from './hosts.json'
 
 export default async (req, res) => {
   const omp = new OMP({
@@ -9,19 +10,26 @@ export default async (req, res) => {
   const connect = await omp.connect()
   const login = await omp.login()
 
-  // Cloudflare sends the end user's IP address in the `cf-connecting-ip` header
-  // https://support.cloudflare.com/hc/en-us/articles/200170986-How-does-Cloudflare-handle-HTTP-Request-headers
-  let ip =
-    req.ip ||
-    req.headers['cf-connecting-ip'] ||
-    req.headers['x-forwarded-for'] ||
-    req.headers['x-real-ip'] ||
-    req.connection.remoteAddresss
+  let ip
+  if (req.body.random) {
+    // Pick a random host from hosts.json
+    const randomIndex = Math.floor(Math.random() * hosts.length)
+    ip = hosts[randomIndex]
+  } else {
+    // Cloudflare sends the end user's IP address in the `cf-connecting-ip` header
+    // https://support.cloudflare.com/hc/en-us/articles/200170986-How-does-Cloudflare-handle-HTTP-Request-headers
+    ip =
+      req.ip ||
+      req.headers['cf-connecting-ip'] ||
+      req.headers['x-forwarded-for'] ||
+      req.headers['x-real-ip'] ||
+      req.connection.remoteAddresss
 
-  // Debug
-  if (ip.includes('127.0.0.1')) {
-    // ping google.com
-    // ip = '142.250.217.110'
+    // Debug
+    if (ip.includes('127.0.0.1')) {
+      // ping google.com
+      // ip = '142.250.217.110'
+    }
   }
 
   const wizard = await omp.runWizard({

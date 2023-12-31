@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import styled from 'styled-components'
-import { Badge, Flex, Box, Divider, Text, Progress, SlideFade } from '@chakra-ui/react'
+import { ButtonGroup, Button, Badge, Flex, Box, Divider, Text, Progress, SlideFade } from '@chakra-ui/react'
 
 const getBadgeColor = (status) => {
   switch (status) {
@@ -190,17 +190,6 @@ const Item = styled.div`
   }
 `
 
-const Button = styled.button`
-  background: #222;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  font-size: 16px;
-  margin-top: 20px;
-  cursor: pointer;
-`
-
 const ItemsAcquired = ({ items, status, progress, createTask }) => {
   const [show, setShow] = useState(false)
 
@@ -292,9 +281,16 @@ const ItemsAcquired = ({ items, status, progress, createTask }) => {
         </Container>
 
         {status === 'Done' && (
-          <Button onClick={createTask} variant="solid" colorScheme="orange" margin="0 auto">
-            Explore Again
-          </Button>
+          <ButtonGroup w="100%" justifyContent="center" mt="4">
+            <Button
+              onClick={() => createTask({ random: true })}
+              variant="solid"
+              colorScheme="orange"
+              alignSelf="center"
+            >
+              Explore
+            </Button>
+          </ButtonGroup>
         )}
       </SlideFade>
     </Box>

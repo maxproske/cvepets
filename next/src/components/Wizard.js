@@ -11,10 +11,10 @@ export const Wizard = () => {
   const { task, updateTask } = useGlobal()
   const [clicked, setClicked] = useState(false)
 
-  const createTask = async () => {
+  const createTask = async ({ random = false }) => {
     setClicked(true)
 
-    const res = await axios.post('/api/createTask')
+    const res = await axios.post('/api/createTask', { random })
     const taskUpdate = res.data.task
 
     updateTask(taskUpdate)
