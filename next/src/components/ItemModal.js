@@ -15,9 +15,76 @@ import {
   VStack,
   Divider,
   Flex,
+  Tag,
+  Wrap,
+  Badge,
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  AccordionIcon,
 } from '@chakra-ui/react'
 import { ItemImage } from './ItemImage'
 import styled from 'styled-components'
+
+// Parses the tags string into an object
+const parseTags = (tagsString) => {
+  const tags = {}
+  tagsString.split('|').forEach((tag) => {
+    const [key, value] = tag.split('=')
+    tags[key.trim()] = value.trim()
+  })
+  return tags
+}
+
+const TagsDisplay = ({ tagsString }) => {
+  const tags = parseTags(tagsString)
+  return (
+    <>
+      {Object.entries(tags).map(([key, value]) => {
+        if (key === 'summary') {
+          return (
+            <Text fontSize="xs" key={key}>
+              {value}
+            </Text>
+          )
+        }
+      })}
+    </>
+  )
+}
+
+const getSeverityLabel = ({ severity }) => {
+  let label
+  if (severity === 0.0) label = 'Common'
+  else if (severity <= 3.9) label = 'Uncommon'
+  else if (severity <= 6.9) label = 'Rare'
+  else if (severity <= 8.9) label = 'Epic'
+  else label = 'Legendary'
+
+  return label
+}
+
+const getBackgroundColor = ({ severity, qod = '100' }) => {
+  let color
+  if (severity === 0.0) color = '#d3d3d3' // Pastel grey
+  else if (severity <= 3.9) color = '#b2fba5' // Pastel green
+  else if (severity <= 6.9) color = '#add8e6' // Pastel blue
+  else if (severity <= 8.9) color = '#ffd580' // Pastel orange
+  else color = '#ff9999' // Pastel red
+
+  const opacity = qod / 100 // Assuming QOD is on a scale of 0 to 100
+  return `rgba(${hexToRgb(color)}, ${opacity})`
+}
+
+const hexToRgb = (hex) => {
+  const bigint = parseInt(hex.substring(1), 16)
+  const r = (bigint >> 16) & 255
+  const g = (bigint >> 8) & 255
+  const b = bigint & 255
+
+  return `${r},${g},${b}`
+}
 
 export const ItemModal = ({ item, isOpen, onClose }) => {
   const [nvt, setNvt] = useState(null)
@@ -61,7 +128,38 @@ export const ItemModal = ({ item, isOpen, onClose }) => {
               <ItemImage item={item} />
             </Box>
 
-            {nvt && <Text fontSize="xs">{nvt.solution.$t || <em>No info</em>}</Text>}
+            <VStack>
+              {item && (
+                <Badge
+                  alignSelf="flex-start"
+                  fontSize="xs"
+                  pl="4"
+                  pr="4"
+                  background={getBackgroundColor({ severity: +item.severity })}
+                >
+                  {getSeverityLabel({ severity: +item.severity })}
+                </Badge>
+              )}
+
+              {nvt && nvt.tags && <TagsDisplay tagsString={nvt.tags} />}
+
+              {nvt?.solution?.$t && (
+                <Accordion allowToggle w="100%">
+                  <AccordionItem>
+                    <AccordionButton p="0" mt="2" mb="2">
+                      <Box flex="1" textAlign="left" fontSize="xs">
+                        <strong>Solution</strong>
+                      </Box>
+                      <AccordionIcon />
+                    </AccordionButton>
+
+                    <AccordionPanel p="0" fontSize="xs" pb={4}>
+                      {nvt.solution.$t}
+                    </AccordionPanel>
+                  </AccordionItem>
+                </Accordion>
+              )}
+            </VStack>
           </Flex>
         </ModalBody>
         <Divider />

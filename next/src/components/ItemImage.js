@@ -11,17 +11,13 @@ const ItemWrapper = styled.div`
   position: relative;
   padding: 0.15rem;
   cursor: pointer;
+  height: 100%;
+  max-height: 55px;
 
   &:before {
     content: '';
-    float: left;
-    padding-top: 100%; /* This creates a 1:1 aspect ratio */
-  }
-
-  &:after {
-    content: '';
     display: block;
-    clear: both;
+    padding-top: 100%; /* This creates the aspect ratio */
   }
 `
 
