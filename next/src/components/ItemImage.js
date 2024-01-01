@@ -79,7 +79,7 @@ export const ItemImage = ({ item, onClick = () => null }) => {
 
   return (
     <ItemWrapper onClick={onClick}>
-      <ItemImageWrapper severity={severity} qod={qod}>
+      <ItemImageWrapper severity={+severity} qod={+qod}>
         <div className="center">
           <Image
             src={'/img/game/items/icons8-minecraft-diamond-96.png'}
