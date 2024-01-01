@@ -14,4 +14,9 @@ doctl kubernetes cluster kubeconfig save 2353f96a-1142-4b5a-9188-c980729091d3
 kubectl get nodes
 
 kubectl apply -f manifests/app.yaml
+
+# Restart
+doctl kubernetes cluster kubeconfig save 2353f96a-1142-4b5a-9188-c980729091d3
+
+kubectl rollout restart -n default deployment next-deployment
 ```

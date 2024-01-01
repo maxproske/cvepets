@@ -40,7 +40,9 @@ tilt down
 - [x] Tilt
 - [x] Deploy to DigitalOcean Kubernetes
 - [x] Setup CI with GitHub Actions
-- [ ] Save/clear progress using localstorage
+- [x] Save/clear progress using localstorage
+- [ ] Vulnerability details
+- [ ] TypeScript
 - [ ] Scan your host -> 0: You're safe! 1+: How to fix -> Next scan
 - [ ] XP, level up
 - [ ] CVE icons

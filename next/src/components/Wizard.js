@@ -9,7 +9,7 @@ import { useState } from 'react'
 
 export const Wizard = () => {
   const { task, updateTask } = useGlobal()
-  const [clicked, setClicked] = useState(false)
+  const [clicked, setClicked] = useState(!!task)
 
   const createTask = async ({ random = false }) => {
     setClicked(true)
@@ -19,6 +19,8 @@ export const Wizard = () => {
 
     updateTask(taskUpdate)
   }
+
+  console.log({ task, clicked })
 
   return (
     <StyledWrapper>

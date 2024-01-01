@@ -18,6 +18,7 @@ export const GlobalStyles = createGlobalStyle`
   body {
     margin: 0;
     color: white;
+    background-color: #00bcd4;
   }
 
   h1, h2, h3, h4, h5, h6 {

@@ -20,8 +20,6 @@ export const ExploreMorePopover = ({ children }) => {
   useEffect(() => {
     if (tutorialStep === 3) {
       onOpen()
-    } else {
-      handleClose()
     }
   }, [tutorialStep, onOpen, onClose])
 

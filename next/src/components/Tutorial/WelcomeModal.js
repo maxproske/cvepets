@@ -34,7 +34,7 @@ const Watermark = styled.div`
 export const WelcomeModal = () => {
   const { tutorialStep, nextStep } = useTutorial()
 
-  const { isOpen, onOpen, onClose } = useDisclosure({ defaultIsOpen: true })
+  const { isOpen, onOpen, onClose } = useDisclosure({ defaultIsOpen: tutorialStep === 0 })
 
   const handleClose = () => {
     nextStep()

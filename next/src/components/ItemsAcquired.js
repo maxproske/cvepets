@@ -282,8 +282,8 @@ const ItemsAcquired = ({ items, status, progress, createTask }) => {
         </Container>
 
         {status === 'Done' && (
-          <ButtonGroup w="100%" justifyContent="center" mt="4">
-            <ExploreMorePopover>
+          <ExploreMorePopover>
+            <ButtonGroup w="100%" justifyContent="center" mt="4">
               <Button
                 onClick={() => createTask({ random: true })}
                 variant="solid"
@@ -292,8 +292,8 @@ const ItemsAcquired = ({ items, status, progress, createTask }) => {
               >
                 Continue Exploration
               </Button>
-            </ExploreMorePopover>
-          </ButtonGroup>
+            </ButtonGroup>
+          </ExploreMorePopover>
         )}
       </SlideFade>
     </Box>

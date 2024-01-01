@@ -20,8 +20,6 @@ export const HuntPopover = ({ children }) => {
   useEffect(() => {
     if (tutorialStep === 2) {
       onOpen()
-    } else {
-      handleClose()
     }
   }, [tutorialStep, onOpen, onClose])
 

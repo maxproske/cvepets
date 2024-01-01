@@ -37,51 +37,32 @@ export const Hub = () => {
   const { tutorialStep } = useTutorial()
   const portalButtonRef = useRef()
 
+  const clearLocalStorage = () => {
+    localStorage.clear()
+    window.location.reload()
+  }
+
   return (
     <VStack spacing={0} h="100dvh" justifyContent="space-between">
-      {tutorialStep === 0 ? (
-        <Flex
-          flex="1"
-          w="full"
-          p="4"
-          overflowY="auto"
-          bgColor="#eee"
-          bgImage="url('/img/game/background/tile-pos.png')"
-          bgRepeat="repeat"
-          bgPosition="0 0"
-        ></Flex>
-      ) : (
-        <>
-          <Flex
-            flex="1"
-            w="full"
-            p="4"
-            overflowY="auto"
-            bgColor="#00bcd4"
-            bgImage="url('/img/game/background/tile-pos.png')"
-            bgRepeat="repeat"
-            bgPosition="0 0"
-            alignItems="center"
-          >
-            {pet ? <Wizard /> : <StarterPetSelector />}
-          </Flex>
+      <Flex direction="column" alignItems="flex-start" w="full" position="relative">
+        <Button onClick={clearLocalStorage} colorScheme="ghost" position="absolute" top="4" left="4" zIndex="overlay">
+          Reset
+        </Button>
+      </Flex>
 
-          {/* <HStack bg="white" justifyContent="space-between" p={2} w="full" boxShadow="md">
-            <IconButton icon={<ArrowBackIcon />} variant="ghost" aria-label="Return" />
-            <HStack spacing={4}>
-              <IconButton
-                ref={portalButtonRef}
-                icon={<AddIcon />}
-                variant="solid"
-                colorScheme="orange"
-                borderRadius="full"
-                aria-label="Portal"
-              />
-            </HStack>
-            <IconButton icon={<HamburgerIcon />} variant="ghost" aria-label="Open Menu" />
-          </HStack> */}
-        </>
-      )}
+      <Flex
+        flex="1"
+        w="full"
+        p="4"
+        overflowY="auto"
+        bgColor="#00bcd4"
+        bgImage="url('/img/game/background/tile-pos.png')"
+        bgRepeat="repeat"
+        bgPosition="0 0"
+        alignItems="center"
+      >
+        {pet ? <Wizard /> : <StarterPetSelector />}
+      </Flex>
     </VStack>
   )
 }

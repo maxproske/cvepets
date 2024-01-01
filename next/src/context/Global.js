@@ -1,7 +1,9 @@
-import { createContext, useReducer, useContext, useMemo } from 'react'
+import { createContext, useReducer, useContext, useMemo, useEffect } from 'react'
 
 const initialState = {
-  pet: null,
+  pet: (typeof window !== 'undefined' && localStorage.getItem('pet')) || null,
+  task:
+    (typeof window !== 'undefined' && localStorage.getItem('task') && JSON.parse(localStorage.getItem('task'))) || null,
 }
 
 export const GlobalContext = createContext(initialState)
@@ -12,12 +14,18 @@ const globalReducer = (state, action) => {
   switch (action.type) {
     case `UPDATE_PET`:
       const { pet } = action
+
+      localStorage.setItem('pet', pet)
+
       return {
         ...state,
         pet,
       }
     case `UPDATE_TASK`:
       const { task } = action
+
+      localStorage.setItem('task', JSON.stringify(task))
+
       return {
         ...state,
         task,

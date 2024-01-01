@@ -20,8 +20,6 @@ export const PortalPopover = ({ children }) => {
   useEffect(() => {
     if (tutorialStep === 1) {
       onOpen()
-    } else {
-      handleClose()
     }
   }, [tutorialStep, onOpen, onClose])
 
