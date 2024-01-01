@@ -3,6 +3,8 @@ import Image from 'next/image'
 import styled from 'styled-components'
 import { ButtonGroup, Button, Badge, Flex, Box, Divider, Text, Progress, SlideFade } from '@chakra-ui/react'
 import { ExploreMorePopover } from './Tutorial/ExploreMorePopover'
+import { ItemModal } from './ItemModal'
+import { ItemImage } from './ItemImage'
 
 const getBadgeColor = (status) => {
   switch (status) {
@@ -12,8 +14,10 @@ const getBadgeColor = (status) => {
       return 'green'
     case 'New':
       return 'blue'
-    case 'Requested':
+    case 'Queued':
       return 'purple'
+    case 'Requested':
+      return 'gray'
     case 'Running':
       return 'orange'
     case 'Stop Requested':
@@ -24,6 +28,31 @@ const getBadgeColor = (status) => {
       return 'pink'
     default:
       return 'gray' // Default color if status is not recognized
+  }
+}
+
+const getBadgeLabel = (status) => {
+  switch (status) {
+    case 'Delete Requested':
+      return 'Error'
+    case 'Queued':
+      return 'Getting Ready'
+    case 'Done':
+      return 'Finished'
+    case 'New':
+      return 'Waking Up'
+    case 'Requested':
+      return 'Waking Up'
+    case 'Running':
+      return 'Exploring'
+    case 'Stop Requested':
+      return 'Error'
+    case 'Stopped':
+      return 'Error'
+    case 'Interrupted':
+      return 'Error'
+    default:
+      return 'Error'
   }
 }
 
@@ -57,7 +86,7 @@ const Title = styled.div`
   font-size: 0.75rem;
   background-color: #222;
   color: white;
-  padding: 0.25rem 1rem 0.25rem 0.5rem;
+  padding: 0.15rem 1rem 0.15rem 0.5rem;
   position: relative;
   display: inline-block;
   margin-bottom: 0.5rem;
@@ -193,6 +222,13 @@ const Item = styled.div`
 
 const ItemsAcquired = ({ items, status, progress, createTask }) => {
   const [show, setShow] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [selectedItem, setSelectedItem] = useState(null)
+
+  const handleItemClick = (item) => {
+    setSelectedItem(item)
+    setIsModalOpen(true)
+  }
 
   useEffect(() => {
     setShow(true)
@@ -205,7 +241,7 @@ const ItemsAcquired = ({ items, status, progress, createTask }) => {
           <Watermark />
           <Flex alignItems="center" mb="4">
             <Badge colorScheme={getBadgeColor(status)} mr="3">
-              {status}
+              {getBadgeLabel(status)}
             </Badge>
             <Text fontSize="sm" color="black">
               {(progress < 0 ? 100 : progress) || 0}%
@@ -233,36 +269,20 @@ const ItemsAcquired = ({ items, status, progress, createTask }) => {
                 <em>No items found.</em>
               </Text>
             ))}
+
           <ItemsGrid>
             {items &&
-              items?.length > 0 &&
-              items?.map((item) => (
-                <Item key={item.id} severity={+item.severity} qod={+item.qod}>
-                  <div className="item-image-wrapper">
-                    <div className="item-image">
-                      <Image
-                        src="/img/game/items/icons8-minecraft-diamond-96.png"
-                        width="32"
-                        height="32"
-                        alt="Item"
-                        quality={100}
-                      />
-                    </div>
-                  </div>
-                  <div className="item-count">x{item.results.count}</div>
-                  <div style={{ display: 'none' }}>{item.qod}</div>
-                  <Tooltip>
-                    {item.name} ({item.severity})
-                  </Tooltip>
-                </Item>
-              ))}
+              items?.length &&
+              items.map((item) => <ItemImage item={item} onClick={() => handleItemClick(item)} />)}
           </ItemsGrid>
 
-          {items && items?.length && (
+          <ItemModal item={selectedItem} isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+
+          {/* {items && items?.length && (
             <>
               <Divider my="4" />
               <ItemsGrid>
-                <Item>
+                <Item onClick={() => handleItemClick(item.id)}>
                   <div className="item-image-wrapper">
                     <div className="item-image">
                       <Image
@@ -277,13 +297,14 @@ const ItemsAcquired = ({ items, status, progress, createTask }) => {
                   <div className="item-count">x{items.length}</div>
                 </Item>
               </ItemsGrid>
+
             </>
-          )}
+          )} */}
         </Container>
 
         {status === 'Done' && (
           <ExploreMorePopover>
-            <ButtonGroup w="100%" justifyContent="center" mt="4">
+            <ButtonGroup w="100%" justifyContent="center" mt="4" mb="8">
               <Button
                 onClick={() => createTask({ random: true })}
                 variant="solid"

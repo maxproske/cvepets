@@ -581,6 +581,27 @@ class OMP {
     this.sendCommand(xml, createResponsePromise(responseFn, resolve, reject))
   }
 
+  get_nvts(nvtId) {
+    const xml = `<get_nvts nvt_oid="${nvtId}" details="1" />`
+
+    return new Promise((resolve, reject) => {
+      this.sendCommand(xml, createResponsePromise(this._handleGetNvts, resolve, reject))
+    })
+  }
+
+  _handleGetNvts(res, resolve, reject) {
+    var nvts_res = res.get_nvts_response
+    if (nvts_res.status === '200') {
+      return resolve({
+        nvt: nvts_res.nvt,
+        filters: nvts_res.filters,
+        infoCount: nvts_res.nvt_count,
+      })
+    }
+
+    return reject(nvts_res.status_text)
+  }
+
   _handleLogin(res, resolve, reject) {
     if (res.authenticate_response.status == '200') {
       this.user.loggedIn = true
