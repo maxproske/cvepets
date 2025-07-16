@@ -5,7 +5,7 @@ export default async (req, res) => {
     const { nvtId } = req.query
 
     const omp = new OMP({
-      host: 'openvas-service', // K8s service name
+      host: 'openvas', // K8s service name is openvas-service
       username: 'admin',
       password: process.env.OV_PASSWORD,
     })

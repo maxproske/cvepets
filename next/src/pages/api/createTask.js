@@ -3,7 +3,7 @@ import hosts from './hosts.json'
 
 export default async (req, res) => {
   const omp = new OMP({
-    host: 'openvas-service', // K8s svc name
+    host: 'openvas', // K8s svc name is openvas-service
     username: 'admin',
     password: process.env.OV_PASSWORD,
   })

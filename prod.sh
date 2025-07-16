@@ -5,22 +5,16 @@ if [ ! -f .env ]; then
     exit 1
 fi
 
-# Spin down any running containers
-docker kill $(docker ps -q) && docker rm $(docker ps -a -q)
+# Create network if it doesn't exist (allows containers to talk to each other by name instead of ip address)
+if ! docker network ls | grep -q "cvepets"; then
+    docker network create cvepets
+fi
 
-# Create network (allows containers to talk to each other by name instead of ip address)
-docker network create cvepets
+# Build and spin up containers in one step, without dropping existing data
+# --build ensures images are rebuilt if needed
+# --renew-anon-volumes and --remove-orphans are optional; remove if you want to preserve all volumes and orphans
 
-# Build image using new BuildKit engine
 docker compose -f docker-compose.yml \
     -f docker-compose.next.yml \
     -f docker-compose.openvas.yml \
-    build --parallel
-
-# Spin up development containers
-# --renew-anon-volumes prevents Postgres from retrieving volumes from previous containers after being killed
-# --remove-orphans removes any renamed containers
-docker compose -f docker-compose.yml \
-    -f docker-compose.next.yml \
-    -f docker-compose.openvas.yml \
-    up --renew-anon-volumes --remove-orphans -d
+    up --build -d
