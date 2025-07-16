@@ -1,6 +1,6 @@
 # Step 1. Rebuild the source code only when needed
 # jsontoxml does not work on alpine
-FROM --platform=linux/amd64 node:18 AS builder
+FROM node:18 AS builder
 
 WORKDIR /app
 
@@ -24,7 +24,7 @@ RUN yarn build
 # jsontoxml does not work on alpine
 # Add `--platform=linux/amd64` if you are building on an M1 Mac
 # Digital Ocean Kubernetes expects linux/amd64 images
-FROM --platform=linux/amd64 node:18 AS runner
+FROM node:18 AS runner
 
 WORKDIR /app
 
