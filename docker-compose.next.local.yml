@@ -1,6 +1,3 @@
-# Extends `docker-compose.next.yml`
-version: "3"
-
 services:
   next:
     container_name: next

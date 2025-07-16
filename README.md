@@ -6,6 +6,14 @@ Web developers rarely consider common vulnerabilities when developing websites. 
 
 ## Getting Started
 
+### Compose
+
+```sh
+./prod.sh
+```
+
+### DO Managed Kubernetes
+
 ```sh
 # Copy environment variables
 cp .env.sample .env
