@@ -9,7 +9,7 @@ services:
       PASSWORD: ${OV_PASSWORD}
       # Get the scanner operational faster, at the cost of
       # using what might be slightly out of date NVTs
-      SKIPSYNC: "true"
+      # SKIPSYNC: "true"
     ports:
       - 8080:9392 # Port 9392 is likely already in use
       # - 9390:9390 # Don't expose OMP port
